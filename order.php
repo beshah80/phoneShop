@@ -1,0 +1,1 @@
+<div class="price"><?php echo number_format($fetch_orders['total_price'], 2); ?> ETB</div> 
