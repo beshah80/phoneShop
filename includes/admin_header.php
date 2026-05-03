@@ -27,6 +27,7 @@ if (isset($message)) {
             <a href="orders.php">orders</a>
             <a href="users.php">users</a>
             <a href="contacts.php">messages</a>
+            <a href="../home.php" style="color: var(--sunlit-gold); margin-left: 2rem;">View Store</a>
         </nav>
 
         <div class="icons">

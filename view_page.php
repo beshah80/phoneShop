@@ -1,135 +1,108 @@
 <?php
+include_once 'includes/config.php';
+include_once 'core/functions.php';
 
-@include 'includes/config.php';
+$user_id = $_SESSION['user_id'] ?? null;
+$msg = handle_add_to_cart($conn, $user_id);
+if($msg) $message[] = $msg;
 
-// session_start();
+// Fetch product details with seller info
+$pid = $_GET['pid'] ?? null;
+if(!$pid) { header('location:home.php'); exit(); }
 
-$user_id = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : null;
+$product_query = mysqli_query($conn, "SELECT p.*, u.name as seller_name, u.email as seller_email, u.phone_number as seller_phone 
+                                      FROM `products` p 
+                                      LEFT JOIN `users` u ON p.seller_id = u.id 
+                                      WHERE p.id = '$pid'") or die('query failed');
 
-if(isset($_POST['add_to_wishlist'])){
-    if(!isset($user_id)){
-        header('location:login.php');
-        exit();
-    }
-
-    $product_id = $_POST['product_id'];
-    $product_name = $_POST['product_name'];
-    $product_price = $_POST['product_price'];
-    $product_image = $_POST['product_image'];
-    
-    $check_wishlist_numbers = mysqli_query($conn, "SELECT * FROM `wishlist` WHERE name = '$product_name' AND user_id = '$user_id'") or die('query failed');
-
-    $check_cart_numbers = mysqli_query($conn, "SELECT * FROM `cart` WHERE name = '$product_name' AND user_id = '$user_id'") or die('query failed');
-
-    if(mysqli_num_rows($check_wishlist_numbers) > 0){
-        $message[] = 'already added to wishlist!';
-    }elseif(mysqli_num_rows($check_cart_numbers) > 0){
-        $message[] = 'already added to cart!';
-    }else{
-        mysqli_query($conn, "INSERT INTO `wishlist`(user_id, pid, name, price, image) VALUES('$user_id', '$product_id', '$product_name', '$product_price', '$product_image')") or die('query failed');
-        $message[] = 'phone added to wishlist!';
-    }
-}
-
-if(isset($_POST['add_to_cart'])){
-    $product_id = $_POST['product_id'];
-    $product_name = $_POST['product_name'];
-    $product_price = $_POST['product_price'];
-    $product_image = $_POST['product_image'];
-    $product_quantity = $_POST['product_quantity'];
-
-    if(!isset($user_id)){
-        if(!isset($_SESSION['cart'])){
-            $_SESSION['cart'] = array();
-        }
-        $_SESSION['cart'][] = array(
-            'pid' => $product_id,
-            'name' => $product_name,
-            'price' => $product_price,
-            'quantity' => $product_quantity,
-            'image' => $product_image
-        );
-        $message[] = 'phone added to cart!';
-    } else {
-        $check_cart_numbers = mysqli_query($conn, "SELECT * FROM `cart` WHERE name = '$product_name' AND user_id = '$user_id'") or die('query failed');
-
-        if(mysqli_num_rows($check_cart_numbers) > 0){
-            $message[] = 'already added to cart!';
-        }else{
-            $check_wishlist_numbers = mysqli_query($conn, "SELECT * FROM `wishlist` WHERE name = '$product_name' AND user_id = '$user_id'") or die('query failed');
-
-            if(mysqli_num_rows($check_wishlist_numbers) > 0){
-                mysqli_query($conn, "DELETE FROM `wishlist` WHERE name = '$product_name' AND user_id = '$user_id'") or die('query failed');
-            }
-
-            mysqli_query($conn, "INSERT INTO `cart`(user_id, pid, name, price, quantity, image) VALUES('$user_id', '$product_id', '$product_name', '$product_price', '$product_quantity', '$product_image')") or die('query failed');
-            $message[] = 'phone added to cart!';
-        }
-    }
-}
-
+if(mysqli_num_rows($product_query) == 0) { header('location:home.php'); exit(); }
+$product = mysqli_fetch_assoc($product_query);
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>phone details</title>
-
-    <!-- font awesome cdn link  -->
+    <title><?php echo $product['name']; ?> - PhoneSell</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-
-    <!-- custom css file link  -->
     <link rel="stylesheet" href="assets/css/style.css">
-
 </head>
-<body>
+<body style="background: var(--jiji-bg);">
     
-<?php @include 'includes/header.php'; ?>
+<?php include 'includes/header.php'; ?>
 
-<section class="quick-view">
+<div class="view-container">
+    <!-- Main Product Content -->
+    <main class="product-main">
+        <div class="product-image-large">
+            <img src="assets/uploads/<?php echo $product['image']; ?>" alt="">
+        </div>
+        <div class="product-info-section">
+            <div class="product-title-row">
+                <h1><?php echo $product['name']; ?></h1>
+                <div class="product-price-large"><?php echo number_format($product['price']); ?> ETB</div>
+            </div>
+            <div class="product-meta">
+                <span><i class="fas fa-clock"></i> Posted 2 days ago</span>
+                <span><i class="fas fa-map-marker-alt"></i> Addis Ababa, Ethiopia</span>
+                <span><i class="fas fa-eye"></i> 142 views</span>
+            </div>
+            <div class="product-description">
+                <h3>Description</h3>
+                <p><?php echo nl2br($product['details']); ?></p>
+            </div>
+        </div>
+    </main>
 
-    <h1 class="title">phone details</h1>
+    <!-- Seller & Safety Sidebar -->
+    <aside class="product-sidebar">
+        <div class="seller-box">
+            <div class="seller-header">
+                <div class="seller-avatar">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div>
+                    <div class="seller-name"><?php echo $product['seller_name'] ?? 'Verified Seller'; ?></div>
+                    <div class="seller-stats">Typically replies in 1 hour</div>
+                </div>
+            </div>
+            
+            <div id="contact-area">
+                <button class="contact-btn" id="show-phone">
+                    <i class="fas fa-phone-alt"></i> Show Contact
+                </button>
+            </div>
+            
+            <form action="" method="POST">
+                <input type="hidden" name="product_id" value="<?php echo $product['id']; ?>">
+                <input type="hidden" name="product_name" value="<?php echo $product['name']; ?>">
+                <input type="hidden" name="product_price" value="<?php echo $product['price']; ?>">
+                <input type="hidden" name="product_image" value="<?php echo $product['image']; ?>">
+                <button type="submit" name="add_to_cart" class="chat-btn">
+                    <i class="fas fa-shopping-cart"></i> Add to Cart
+                </button>
+            </form>
+        </div>
 
-    <?php  
-        if(isset($_GET['pid'])){
-            $pid = $_GET['pid'];
-            $select_products = mysqli_query($conn, "SELECT * FROM `products` WHERE id = '$pid'") or die('query failed');
-            if(mysqli_num_rows($select_products) > 0){
-                while($fetch_products = mysqli_fetch_assoc($select_products)){
-    ?>
-    <form action="" method="POST">
-        <img src="assets/uploads/<?php echo $fetch_products['image']; ?>" alt="" class="image">
-        <div class="name"><?php echo $fetch_products['name']; ?></div>
-        <div class="price"><?php echo number_format($fetch_products['price'], 2); ?> ETB</div>
-        <div class="details"><?php echo $fetch_products['details']; ?></div>
-        <input type="number" name="product_quantity" value="1" min="0" class="qty">
-        <input type="hidden" name="product_id" value="<?php echo $fetch_products['id']; ?>">
-        <input type="hidden" name="product_name" value="<?php echo $fetch_products['name']; ?>">
-        <input type="hidden" name="product_price" value="<?php echo $fetch_products['price']; ?>">
-        <input type="hidden" name="product_image" value="<?php echo $fetch_products['image']; ?>">
-        <input type="submit" value="add to wishlist" name="add_to_wishlist" class="option-btn">
-        <input type="submit" value="add to cart" name="add_to_cart" class="btn">
-    </form>
-    <?php
-            }
-        }else{
-        echo '<p class="empty">no phone details available!</p>';
-        }
-    }
-    ?>
+        <div class="safety-tips">
+            <h4>Safety Tips</h4>
+            <ul>
+                <li><i class="fas fa-check-circle"></i> Don't pay in advance, even for delivery</li>
+                <li><i class="fas fa-check-circle"></i> Meet with the seller at a safe public place</li>
+                <li><i class="fas fa-check-circle"></i> Inspect the phone before you pay</li>
+                <li><i class="fas fa-check-circle"></i> Pay only after collecting the phone</li>
+            </ul>
+        </div>
+    </aside>
+</div>
 
-    <div class="more-btn">
-        <a href="home.php" class="option-btn">back to home</a>
-    </div>
+<?php include 'includes/footer.php'; ?>
 
-</section>
-
-<?php @include 'includes/footer.php'; ?>
-
-<script src="assets/js/script.js"></script>
-
+<script>
+    document.getElementById('show-phone').onclick = function() {
+        this.innerHTML = '<i class="fas fa-phone-alt"></i> <?php echo $product['seller_phone'] ?? "+251 912 345 678"; ?>';
+        this.style.background = '#000';
+    };
+</script>
 </body>
 </html>

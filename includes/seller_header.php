@@ -3,17 +3,8 @@ include_once __DIR__ . '/config.php';
 
 $user_id = $_SESSION['user_id'] ?? null;
 
-if ($user_id) {
-    $stmt = mysqli_prepare($conn, "SELECT status FROM `seller_applications` WHERE user_id = ? AND status = 'approved'");
-    mysqli_stmt_bind_param($stmt, "i", $user_id);
-    mysqli_stmt_execute($stmt);
-    $result = mysqli_stmt_get_result($stmt);
-    if (mysqli_num_rows($result) == 0) {
-        header('Location: ../home.php');
-        exit();
-    }
-    mysqli_stmt_close($stmt);
-}
+// Allow any logged-in user to access seller pages (Jiji-style marketplace)
+// No seller approval required
 
 if (isset($messages)) {
     $message_list = is_array($messages) ? $messages : [$messages];
@@ -39,6 +30,7 @@ if (isset($messages)) {
                 <li><a href="dashboard.php">Dashboard</a></li>
                 <li><a href="products.php">My Products</a></li>
                 <li><a href="add_product.php">Add Product</a></li>
+                <li><a href="../home.php" style="color: var(--sunlit-gold);">View Store</a></li>
             </ul>
         </nav>
         <div class="icons">

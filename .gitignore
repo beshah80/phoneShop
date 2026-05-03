@@ -1,0 +1,24 @@
+# PhoneShop Marketplace Git Ignore
+
+# Reference folders
+jijiclone-master/
+
+# User Uploads (Don't track uploaded images)
+assets/uploads/*
+!assets/uploads/.gitkeep
+
+# System files
+.DS_Store
+Thumbs.db
+*.log
+
+# IDE & Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Web server files
+.htaccess
+error_log
+php_errors.log
