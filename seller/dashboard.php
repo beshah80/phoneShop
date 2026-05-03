@@ -44,6 +44,33 @@ $recent_products = mysqli_query($conn, "SELECT * FROM `products` WHERE seller_id
         .product-info { padding: 2rem; }
         .product-title { font-size: 1.6rem; font-weight: 700; margin-bottom: 0.5rem; }
         .product-price { font-size: 1.8rem; font-weight: 800; color: #3db83a; margin-bottom: 1.5rem; }
+
+        /* Empty State Styling */
+        .empty-state { 
+            text-align: center; 
+            padding: 8rem 2rem; 
+            background: #fff; 
+            border-radius: 12px; 
+            border: 1px dashed #ddd;
+            margin-top: 2rem;
+        }
+        .empty-state i { 
+            font-size: 6rem; 
+            color: #eee; 
+            margin-bottom: 2rem; 
+            display: block;
+        }
+        .empty-state h3 { 
+            font-size: 2.2rem; 
+            font-weight: 800; 
+            color: #333; 
+            margin-bottom: 1rem; 
+        }
+        .empty-state p { 
+            font-size: 1.5rem; 
+            color: #777; 
+            margin-bottom: 3rem; 
+        }
     </style>
 </head>
 <body class="seller-dashboard">
