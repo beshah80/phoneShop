@@ -126,4 +126,8 @@ include_once 'includes/config.php';
 </style>
 
 <!-- Unified Script Inclusion with Cache Buster -->
-<script src="/phoneShop/assets/js/script.js?v=1.4"></script>
+<!-- Global Components -->
+<?php include_once 'includes/components/cart_modal.php'; ?>
+
+<!-- Unified Script Inclusion with Cache Buster -->
+<script src="/phoneShop/assets/js/script.js?v=1.7"></script>

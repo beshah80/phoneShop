@@ -40,7 +40,12 @@ document.addEventListener('DOMContentLoaded', () => {
             const data = await response.json();
             const cartBadge = document.querySelector('.cart-count');
             if (cartBadge) cartBadge.innerText = data.cart_count;
-            alert(data.message);
+            
+            // Show Premium Custom Modal instead of disgusting alert
+            const cartModal = document.getElementById('cartModal');
+            if (cartModal) {
+                cartModal.classList.add('active');
+            }
         } catch (error) {
             console.error('Error adding to cart:', error);
         }

@@ -1,0 +1,8 @@
+{
+    "name": "beshah/phone-shop",
+    "description": "Professional Jiji-Style Phone Marketplace",
+    "type": "project",
+    "require": {
+        "php": ">=7.4"
+    }
+}
