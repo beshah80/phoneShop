@@ -3,6 +3,12 @@
     "description": "Professional Jiji-Style Phone Marketplace",
     "type": "project",
     "require": {
-        "php": ">=7.4"
+        "php": "8.2.*",
+        "ext-mysqli": "*"
+    },
+    "config": {
+        "platform": {
+            "php": "8.2.0"
+        }
     }
 }

@@ -1,24 +1,25 @@
 # PhoneShop Marketplace Git Ignore
 
-# Reference folders
+# Reference & Clones
 jijiclone-master/
+jiji-clone-master/
 
-# User Uploads (Don't track uploaded images)
+# SQL Dumps (Ignore large database files)
+sql/MASTER_DEPLOY.sql
+sql/*.sql
+
+# User Uploads
 assets/uploads/*
 !assets/uploads/.gitkeep
 
-# System files
+# System & IDE
 .DS_Store
 Thumbs.db
-*.log
-
-# IDE & Editor files
 .vscode/
 .idea/
+*.log
 *.swp
-*.swo
 
-# Web server files
-.htaccess
-error_log
-php_errors.log
+# Vendor folder
+vendor/
+composer.lock
