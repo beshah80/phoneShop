@@ -1,5 +1,5 @@
 <?php
-include 'config.php';
+include 'includes/config.php';
 
 $user_id = $_SESSION['user_id'];
 
@@ -50,11 +50,11 @@ $items = mysqli_stmt_get_result($stmt);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Payment Successful - PhoneSell</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
 
-<?php include 'header.php'; ?>
+<?php include 'includes/header.php'; ?>
 
 <section class="heading">
     <h3>Payment Successful</h3>
@@ -86,7 +86,7 @@ $items = mysqli_stmt_get_result($stmt);
                     <div class="items-list">
                         <?php while ($item = mysqli_fetch_assoc($items)): ?>
                         <div class="item">
-                            <img src="uploaded_img/<?php echo htmlspecialchars($item['image']); ?>" alt="">
+                            <img src="assets/uploads/<?php echo htmlspecialchars($item['image']); ?>" alt="">
                             <div class="item-details">
                                 <h5><?php echo htmlspecialchars($item['name']); ?></h5>
                                 <p>Quantity: <?php echo $item['quantity']; ?></p>
@@ -350,7 +350,7 @@ $items = mysqli_stmt_get_result($stmt);
 }
 </style>
 
-<?php include 'footer.php'; ?>
-<script src="js/script.js"></script>
+<?php include 'includes/footer.php'; ?>
+<script src="assets/js/script.js"></script>
 </body>
 </html> 

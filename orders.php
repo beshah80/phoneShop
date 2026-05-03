@@ -1,5 +1,5 @@
 <?php
-include 'config.php';
+include 'includes/config.php';
 // session_start();
 
 $user_id = $_SESSION['user_id'];
@@ -18,11 +18,11 @@ if (!isset($user_id)) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Orders</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
 
-<?php include 'header.php'; ?>
+<?php include 'includes/header.php'; ?>
 
 <section class="heading">
     <h3>Your Orders</h3>
@@ -68,7 +68,7 @@ if (!isset($user_id)) {
     </div>
 </section>
 
-<?php include 'footer.php'; ?>
-<script src="js/script.js"></script>
+<?php include 'includes/footer.php'; ?>
+<script src="assets/js/script.js"></script>
 </body>
 </html>

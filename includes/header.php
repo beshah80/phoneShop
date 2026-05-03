@@ -1,5 +1,5 @@
 <?php
-@include 'config.php';
+include_once __DIR__ . '/config.php';
 $user_id = $_SESSION['user_id'] ?? null;
 
 if (isset($messages)) {
@@ -18,7 +18,7 @@ if (isset($messages)) {
 ?>
 
 <header class="header">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -32,11 +32,11 @@ if (isset($messages)) {
                 <nav class="navbar">
                     <ul>
                         <?php if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'admin'): ?>
-                            <li><a href="admin_page.php"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
-                            <li><a href="admin_products.php"><i class="fas fa-box"></i> Products</a></li>
-                            <li><a href="admin_orders.php"><i class="fas fa-shopping-bag"></i> Orders</a></li>
-                            <li><a href="admin_users.php"><i class="fas fa-users"></i> Users</a></li>
-                            <li><a href="admin_contacts.php"><i class="fas fa-envelope"></i> Messages</a></li>
+                            <li><a href="admin/dashboard.php"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                            <li><a href="admin/products.php"><i class="fas fa-box"></i> Products</a></li>
+                            <li><a href="admin/orders.php"><i class="fas fa-shopping-bag"></i> Orders</a></li>
+                            <li><a href="admin/users.php"><i class="fas fa-users"></i> Users</a></li>
+                            <li><a href="admin/contacts.php"><i class="fas fa-envelope"></i> Messages</a></li>
                         <?php else: ?>
                             <li><a href="home.php"><i class="fas fa-home"></i> Home</a></li>
                             <li><a href="shop.php"><i class="fas fa-store"></i> Shop</a></li>
@@ -48,19 +48,19 @@ if (isset($messages)) {
                                     <li><a href="warranty.php">Warranty</a></li>
                                 </ul>
                             </li>
-                            <li><a href="orders.php"><i class="fas fa-shopping-bag"></i> Orders</a></li>
+                            <li><a href="admin/orders.php"><i class="fas fa-shopping-bag"></i> Orders</a></li>
                             <?php if (!$user_id): ?>
                                 <li>
                                     <a href="#"><i class="fas fa-user"></i> Account</a>
                                     <ul>
                                         <li><a href="login.php">Login</a></li>
                                         <li><a href="register.php">Register</a></li>
-                                        <li><a href="seller_apply.php">Become Seller</a></li>
+                                        <li><a href="seller/apply.php">Become Seller</a></li>
                                     </ul>
                                 </li>
                             <?php else: ?>
                                 <?php if (!isset($_SESSION['is_approved_seller']) || !$_SESSION['is_approved_seller']): ?>
-                                    <li><a href="seller_apply.php">Become Seller</a></li>
+                                    <li><a href="seller/apply.php">Become Seller</a></li>
                                 <?php endif; ?>
                             <?php endif; ?>
                         <?php endif; ?>
@@ -98,7 +98,7 @@ if (isset($messages)) {
                         <span class="count"><?php echo $cart_count; ?></span>
                     </a>
                     <?php if ($user_id): ?>
-                        <a href="seller_dashboard.php" class="seller-icon <?php echo (isset($_SESSION['is_approved_seller']) && $_SESSION['is_approved_seller']) ? '' : 'disabled'; ?>" title="Seller Dashboard">
+                        <a href="seller/dashboard.php" class="seller-icon <?php echo (isset($_SESSION['is_approved_seller']) && $_SESSION['is_approved_seller']) ? '' : 'disabled'; ?>" title="Seller Dashboard">
                             <i class="fas fa-store"></i>
                         </a>
                     <?php endif; ?>

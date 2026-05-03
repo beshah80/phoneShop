@@ -1,11 +1,11 @@
 <?php
-include 'config.php';
+include '../includes/config.php';
 
 $user_id = isset($_SESSION['user_id']) ? (int)$_SESSION['user_id'] : 0;
 $messages = [];
 
 if (!$user_id) {
-    header('location:login.php');
+    header('location:../login.php');
     exit();
 }
 
@@ -57,11 +57,11 @@ if (isset($_POST['apply']) && $application['app_count'] == 0) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Apply to be a Seller</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="css/seller_style.css">
+    <link rel="stylesheet" href="../assets/css/seller_style.css">
   
 </head>
 <body>
-<?php include 'header.php'; ?>
+<?php include '../includes/header.php'; ?>
 
 <section class="add-products">
     <h1 class="title">Become a Seller</h1>
@@ -95,6 +95,6 @@ if (isset($_POST['apply']) && $application['app_count'] == 0) {
     <?php endif; ?>
 </section>
 
-<script src="js/seller_script.js"></script>
+<script src="../assets/js/seller_script.js"></script>
 </body>
 </html>

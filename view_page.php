@@ -1,6 +1,6 @@
 <?php
 
-@include 'config.php';
+@include 'includes/config.php';
 
 // session_start();
 
@@ -82,12 +82,12 @@ if(isset($_POST['add_to_cart'])){
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
     <!-- custom css file link  -->
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="assets/css/style.css">
 
 </head>
 <body>
     
-<?php @include 'header.php'; ?>
+<?php @include 'includes/header.php'; ?>
 
 <section class="quick-view">
 
@@ -101,7 +101,7 @@ if(isset($_POST['add_to_cart'])){
                 while($fetch_products = mysqli_fetch_assoc($select_products)){
     ?>
     <form action="" method="POST">
-        <img src="(../uploaded_img//<?php echo $fetch_products['image']; ?>" alt="" class="image">
+        <img src="assets/uploads/<?php echo $fetch_products['image']; ?>" alt="" class="image">
         <div class="name"><?php echo $fetch_products['name']; ?></div>
         <div class="price"><?php echo number_format($fetch_products['price'], 2); ?> ETB</div>
         <div class="details"><?php echo $fetch_products['details']; ?></div>
@@ -127,9 +127,9 @@ if(isset($_POST['add_to_cart'])){
 
 </section>
 
-<?php @include 'footer.php'; ?>
+<?php @include 'includes/footer.php'; ?>
 
-<script src="js/script.js"></script>
+<script src="assets/js/script.js"></script>
 
 </body>
 </html>

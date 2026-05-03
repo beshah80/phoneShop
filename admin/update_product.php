@@ -1,11 +1,11 @@
 <?php
-include 'config.php';
+include '../includes/config.php';
 // session_start();
 
 $admin_id = $_SESSION['admin_id'];
 
 if (!isset($admin_id)) {
-    header('Location: login.php');
+    header('Location: ../login.php');
     exit();
 }
 
@@ -26,11 +26,11 @@ if (isset($_POST['update_product'])) {
         $image = $_FILES['image']['name'];
         $image_size = $_FILES['image']['size'];
         $image_tmp_name = $_FILES['image']['tmp_name'];
-        $image_folder = '../upload_image/' . basename($image);
+        $image_folder = '../assets/uploads/' . basename($image);
         $old_image = $_POST['update_p_image'];
 
         if (!empty($image)) {
-            $upload_dir = '../upload_image/';
+            $upload_dir = '../assets/uploads/';
             if (!is_dir($upload_dir)) {
                 mkdir($upload_dir, 0755, true);
             }
@@ -42,7 +42,7 @@ if (isset($_POST['update_product'])) {
                 } else {
                     if (move_uploaded_file($image_tmp_name, $image_folder)) {
                         mysqli_query($conn, "UPDATE `products` SET image = '$image' WHERE id = '$update_p_id'") or die(mysqli_error($conn));
-                        $old_image_path = '../upload_image/' . $old_image;
+                        $old_image_path = '../assets/uploads/' . $old_image;
                         if (file_exists($old_image_path)) {
                             unlink($old_image_path);
                         }
@@ -66,7 +66,7 @@ if (isset($_POST['update_product'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Update Phone - PhoneSell</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="css/admin_style.css">
+    <link rel="stylesheet" href="../assets/css/admin_style.css">
     <style>
         .notification {
             position: fixed;
@@ -99,7 +99,7 @@ if (isset($_POST['update_product'])) {
 </head>
 <body>
 
-<?php include 'admin_header.php'; ?>
+<?php include '../includes/admin_header.php'; ?>
 
 <?php if (!empty($messages)): ?>
     <?php foreach ($messages as $message): ?>
@@ -117,7 +117,7 @@ if (isset($_POST['update_product'])) {
         $fetch_products = mysqli_fetch_assoc($select_products);
     ?>
     <form action="" method="POST" enctype="multipart/form-data">
-        <img src="../upload_image/<?php echo htmlspecialchars($fetch_products['image']); ?>" alt="<?php echo htmlspecialchars($fetch_products['name']); ?>" class="cart-image">
+        <img src="../assets/uploads/<?php echo htmlspecialchars($fetch_products['image']); ?>" alt="<?php echo htmlspecialchars($fetch_products['name']); ?>" class="cart-image">
         <input type="hidden" value="<?php echo $fetch_products['id']; ?>" name="update_p_id">
         <input type="hidden" value="<?php echo $fetch_products['image']; ?>" name="update_p_image">
         <input type="text" class="box" value="<?php echo htmlspecialchars($fetch_products['name']); ?>" required placeholder="Update phone model" name="name">
@@ -126,7 +126,7 @@ if (isset($_POST['update_product'])) {
         <div class="char-count">Characters remaining: <span id="charCount"><?php echo 200 - strlen($fetch_products['details']); ?></span></div>
         <input type="file" accept="image/jpg,image/jpeg,image/png" class="box" name="image">
         <input type="submit" value="Update Phone" name="update_product" class="btn">
-        <a href="admin_products.php" class="option-btn">Go Back</a>
+        <a href="products.php" class="option-btn">Go Back</a>
     </form>
     <?php
     } else {
@@ -135,7 +135,7 @@ if (isset($_POST['update_product'])) {
     ?>
 </section>
 
-<script src="js/admin_script.js"></script>
+<script src="../assets/js/admin_script.js"></script>
 <script>
     // Auto-hide notifications after 3 seconds
     document.addEventListener('DOMContentLoaded', function() {

@@ -19,14 +19,14 @@ if (isset($message)) {
 
 <header class="header">
     <div class="flex">
-        <a href="admin_page.php" class="logo">PhoneSell<span>Admin</span></a>
+        <a href="dashboard.php" class="logo">PhoneSell<span>Admin</span></a>
 
         <nav class="navbar">
-            <a href="admin_page.php">dashboard</a>
-            <a href="admin_products.php">phones</a>
-            <a href="admin_orders.php">orders</a>
-            <a href="admin_users.php">users</a>
-            <a href="admin_contacts.php">messages</a>
+            <a href="dashboard.php">dashboard</a>
+            <a href="products.php">phones</a>
+            <a href="orders.php">orders</a>
+            <a href="users.php">users</a>
+            <a href="contacts.php">messages</a>
         </nav>
 
         <div class="icons">
@@ -37,8 +37,8 @@ if (isset($message)) {
         <div class="account-box">
             <p>username: <span><?php echo htmlspecialchars($_SESSION['admin_name'] ?? 'N/A'); ?></span></p>
             <p>email: <span><?php echo htmlspecialchars($_SESSION['admin_email'] ?? 'N/A'); ?></span></p>
-            <a href="logout.php" class="delete-btn">logout</a>
-            <div>new <a href="login.php">login</a> | <a href="register.php">register</a></div>
+            <a href="../logout.php" class="delete-btn">logout</a>
+            <div>new <a href="../login.php">login</a> | <a href="../register.php">register</a> | <a href="../home.php">home</a></div>
         </div>
     </div>
 </header>

@@ -1,5 +1,5 @@
 <?php
-@include 'header.php';
+@include 'includes/header.php';
 ?>
 
 <div class="heading">
@@ -202,5 +202,5 @@ document.querySelectorAll('.faq-question').forEach(question => {
 </script>
 
 <?php
-@include 'footer.php';
+@include 'includes/footer.php';
 ?> 

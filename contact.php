@@ -1,6 +1,6 @@
 <?php
 
-@include 'config.php';
+@include 'includes/config.php';
 
 // session_start();
 
@@ -42,12 +42,12 @@ if(isset($_POST['send'])){
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
     <!-- custom css file link  -->
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="assets/css/style.css">
 
 </head>
 <body>
     
-<?php @include 'header.php'; ?>
+<?php @include 'includes/header.php'; ?>
 
 <section class="heading">
     <h3>contact us</h3>
@@ -67,9 +67,9 @@ if(isset($_POST['send'])){
 
 </section>
 
-<?php @include 'footer.php'; ?>
+<?php @include 'includes/footer.php'; ?>
 
-<script src="js/script.js"></script>
+<script src="assets/js/script.js"></script>
 
 </body>
 </html>

@@ -1,6 +1,6 @@
 <?php
 
-@include 'config.php';
+@include 'includes/config.php';
 
 ?>
 
@@ -16,12 +16,12 @@
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
    <!-- custom admin css file link  -->
-   <link rel="stylesheet" href="css/style.css">
+   <link rel="stylesheet" href="assets/css/style.css">
 
 </head>
 <body>
    
-<?php @include 'header.php'; ?>
+<?php @include 'includes/header.php'; ?>
 
 <section class="heading">
     <h3>about us</h3>
@@ -33,7 +33,7 @@
     <div class="flex">
 
         <div class="image">
-            <img src="images/about-img-1.png" alt="">
+            <img src="assets/images/about-img-1.png" alt="">
         </div>
 
         <div class="content">
@@ -53,7 +53,7 @@
         </div>
 
         <div class="image">
-            <img src="images/about-img-2.png" alt="">
+            <img src="assets/images/about-img-2.png" alt="">
         </div>
 
     </div>
@@ -61,7 +61,7 @@
     <div class="flex">
 
         <div class="image">
-            <img src="images/about-img-3.png" alt="">
+            <img src="assets/images/about-img-3.png" alt="">
         </div>
 
         <div class="content">
@@ -81,7 +81,7 @@
     <div class="box-container">
 
         <div class="box">
-            <img src="images/review-1.png" alt="">
+            <img src="assets/images/review-1.png" alt="">
             <p>I bought an iPhone 14 from PhoneSell, and the experience was fantastic! Fast shipping and the phone was in perfect condition.</p>
             <div class="stars">
                 <i class="fas fa-star"></i>
@@ -94,7 +94,7 @@
         </div>
 
         <div class="box">
-            <img src="images/review-2.png" alt="">
+            <img src="assets/images/review-2.png" alt="">
             <p>The Galaxy S23 I ordered arrived quickly, and the customer service was top-notch. Highly recommend PhoneSell!</p>
             <div class="stars">
                 <i class="fas fa-star"></i>
@@ -107,7 +107,7 @@
         </div>
 
         <div class="box">
-            <img src="images/review-3.png" alt="">
+            <img src="assets/images/review-3.png" alt="">
             <p>PhoneSell's selection of Google Pixel phones is amazing. My Pixel 8 is awesome, and the price was unbeatable.</p>
             <div class="stars">
                 <i class="fas fa-star"></i>
@@ -120,7 +120,7 @@
         </div>
 
         <div class="box">
-            <img src="images/review-4.png" alt="">
+            <img src="assets/images/review-4.png" alt="">
             <p>I got a OnePlus 11 from PhoneSell, and it's everything I wanted. Great quality and smooth delivery process.</p>
             <div class="stars">
                 <i class="fas fa-star"></i>
@@ -133,7 +133,7 @@
         </div>
 
         <div class="box">
-            <img src="images/review-5.png" alt="">
+            <img src="assets/images/review-5.png" alt="">
             <p>The Xiaomi 14 I purchased is fantastic, and PhoneSell's support team was super helpful. Will shop again!</p>
             <div class="stars">
                 <i class="fas fa-star"></i>
@@ -146,7 +146,7 @@
         </div>
 
         <div class="box">
-            <img src="images/review-6.png" alt="">
+            <img src="assets/images/review-6.png" alt="">
             <p>My Huawei P60 Pro from PhoneSell is stunning. The website is easy to use, and delivery was quick.</p>
             <div class="stars">
                 <i class="fas fa-star"></i>
@@ -162,9 +162,9 @@
 
 </section>
 
-<?php @include 'footer.php'; ?>
+<?php @include 'includes/footer.php'; ?>
 
-<script src="js/script.js"></script>
+<script src="assets/js/script.js"></script>
 
 </body>
 </html>

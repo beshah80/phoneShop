@@ -1,13 +1,13 @@
 <?php
 
-@include 'config.php';
+@include '../includes/config.php';
 
 // session_start();
 
 $admin_id = $_SESSION['admin_id'];
 
 if(!isset($admin_id)){
-   header('location:login.php');
+   header('location:../login.php');
 };
 
 // Move all dashboard variable calculations here
@@ -55,12 +55,12 @@ $number_of_messages = mysqli_num_rows($select_messages);
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
    <!-- custom admin css file link  -->
-   <link rel="stylesheet" href="css/admin_style.css">
+   <link rel="stylesheet" href="../assets/css/admin_style.css">
 
 </head>
 <body>
    
-<?php @include 'admin_header.php'; ?>
+<?php @include '../includes/admin_header.php'; ?>
 
 <section class="dashboard">
     <h1 class="title">Admin Dashboard</h1>
@@ -127,7 +127,7 @@ $number_of_messages = mysqli_num_rows($select_messages);
     </div>
 </section>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script src="js/admin_script.js"></script>
+<script src="../assets/js/admin_script.js"></script>
 
 </body>
 </html>

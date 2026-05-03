@@ -1,11 +1,11 @@
 <?php
-include 'config.php';
+include '../includes/config.php';
 // session_start();
 
 $admin_id = $_SESSION['admin_id'];
 
 if (!isset($admin_id)) {
-    header('Location: login.php');
+    header('Location: ../login.php');
     exit();
 }
 
@@ -23,10 +23,10 @@ if (isset($_POST['add_product'])) {
         $image = $_FILES['image']['name'];
         $image_size = $_FILES['image']['size'];
         $image_tmp_name = $_FILES['image']['tmp_name'];
-        $image_folder = '../upload_image/' . basename($image);
+        $image_folder = '../assets/uploads/' . basename($image);
 
         // Check if upload_image directory exists and is writable
-        $upload_dir = '../upload_image/';
+        $upload_dir = '../assets/uploads/';
         if (!is_dir($upload_dir)) {
             mkdir($upload_dir, 0755, true);
         }
@@ -67,7 +67,7 @@ if (isset($_GET['delete'])) {
     $select_delete_image = mysqli_query($conn, "SELECT image FROM `products` WHERE id = '$delete_id'") or die(mysqli_error($conn));
     if (mysqli_num_rows($select_delete_image) > 0) {
         $fetch_delete_image = mysqli_fetch_assoc($select_delete_image);
-        $image_path = '../upload_image/' . $fetch_delete_image['image'];
+        $image_path = '../assets/uploads/' . $fetch_delete_image['image'];
         if (file_exists($image_path)) {
             unlink($image_path);
         }
@@ -76,7 +76,7 @@ if (isset($_GET['delete'])) {
     mysqli_query($conn, "DELETE FROM `wishlist` WHERE pid = '$delete_id'") or die(mysqli_error($conn));
     mysqli_query($conn, "DELETE FROM `cart` WHERE pid = '$delete_id'") or die(mysqli_error($conn));
     $messages[] = ['type' => 'success', 'text' => 'Phone deleted successfully!'];
-    header('Location: admin_products.php');
+    header('Location: products.php');
     exit();
 }
 ?>
@@ -88,7 +88,7 @@ if (isset($_GET['delete'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Phones - PhoneSell</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="css/admin_style.css">
+    <link rel="stylesheet" href="../assets/css/admin_style.css">
     <style>
         .notification {
             position: fixed;
@@ -121,7 +121,7 @@ if (isset($_GET['delete'])) {
 </head>
 <body>
 
-<?php include 'admin_header.php'; ?>
+<?php include '../includes/admin_header.php'; ?>
 
 <?php if (!empty($messages)): ?>
     <?php foreach ($messages as $message): ?>
@@ -163,13 +163,13 @@ if (isset($_GET['delete'])) {
                     while ($fetch_products = mysqli_fetch_assoc($select_products)) {
                 ?>
                 <tr>
-                    <td><img src="../upload_image/<?php echo htmlspecialchars($fetch_products['image']); ?>" alt="<?php echo htmlspecialchars($fetch_products['name']); ?>" class="product-thumb"></td>
+                    <td><img src="../assets/uploads/<?php echo htmlspecialchars($fetch_products['image']); ?>" alt="<?php echo htmlspecialchars($fetch_products['name']); ?>" class="product-thumb"></td>
                     <td><?php echo htmlspecialchars($fetch_products['name']); ?></td>
                     <td><span class="product-price-badge"><?php echo number_format($fetch_products['price'], 2); ?> ETB</span></td>
                     <td><?php echo htmlspecialchars($fetch_products['details']); ?></td>
                     <td class="actions">
-                        <a href="admin_update_product.php?update=<?php echo $fetch_products['id']; ?>" class="option-btn"><i class="fas fa-edit"></i> Update</a>
-                        <a href="admin_products.php?delete=<?php echo $fetch_products['id']; ?>" onclick="return confirm('Delete this phone?');" class="delete-btn"><i class="fas fa-trash"></i> Delete</a>
+                        <a href="update_product.php?update=<?php echo $fetch_products['id']; ?>" class="option-btn"><i class="fas fa-edit"></i> Update</a>
+                        <a href="products.php?delete=<?php echo $fetch_products['id']; ?>" onclick="return confirm('Delete this phone?');" class="delete-btn"><i class="fas fa-trash"></i> Delete</a>
                     </td>
                 </tr>
                 <?php
@@ -183,7 +183,7 @@ if (isset($_GET['delete'])) {
     </div>
 </section>
 
-<script src="js/admin_script.js"></script>
+<script src="../assets/js/admin_script.js"></script>
 <script>
     // Auto-hide notifications after 3 seconds
     document.addEventListener('DOMContentLoaded', function() {

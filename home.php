@@ -1,6 +1,6 @@
 <?php
 
-@include 'config.php';
+@include 'includes/config.php';
 
 $user_id = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : null;
 
@@ -59,12 +59,12 @@ if(isset($_POST['add_to_cart'])){
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
     <!-- custom css file link  -->
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="assets/css/style.css">
 
 </head>
 <body>
     
-<?php @include 'header.php'; ?>
+<?php @include 'includes/header.php'; ?>
 
 <section class="home">
 
@@ -90,7 +90,7 @@ if(isset($_POST['add_to_cart'])){
         <form action="" method="POST" class="box">
             <a href="view_page.php?pid=<?php echo $fetch_products['id']; ?>" class="fas fa-eye"></a>
             <div class="price"><?php echo number_format($fetch_products['price'], 2); ?> ETB</div>
-            <img src="uploaded_img/<?php echo $fetch_products['image']; ?>" alt="" class="image">
+            <img src="assets/uploads/<?php echo $fetch_products['image']; ?>" alt="" class="image">
             <div class="name"><?php echo $fetch_products['name']; ?></div>
             <input type="number" name="product_quantity" value="1" min="0" class="qty">
             <input type="hidden" name="product_id" value="<?php echo $fetch_products['id']; ?>">
@@ -124,9 +124,9 @@ if(isset($_POST['add_to_cart'])){
 
 </section>
 
-<?php @include 'footer.php'; ?>
+<?php @include 'includes/footer.php'; ?>
 
-<script src="js/script.js"></script>
+<script src="assets/js/script.js"></script>
 
 </body>
 </html>

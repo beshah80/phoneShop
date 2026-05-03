@@ -1,5 +1,5 @@
 <?php
-include 'config.php';
+include 'includes/config.php';
 // session_start();
 
 $user_id = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : null;
@@ -60,11 +60,11 @@ if (isset($_POST['update_quantity'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cart</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
 
-<?php include 'header.php'; ?>
+<?php include 'includes/header.php'; ?>
 
 <section class="heading">
     <h3>Your Cart</h3>
@@ -95,7 +95,7 @@ if (isset($_POST['update_quantity'])) {
                         while ($fetch_cart = mysqli_fetch_assoc($select_cart)) {
                             $sub_total = $fetch_cart['price'] * $fetch_cart['quantity'];
                             $grand_total += $sub_total;
-                            $image_path = strpos($fetch_cart['image'], 'uploaded_img/') === 0 ? $fetch_cart['image'] : 'uploaded_img/' . $fetch_cart['image'];
+                            $image_path = strpos($fetch_cart['image'], 'assets/uploads/') === 0 ? $fetch_cart['image'] : 'assets/uploads/' . $fetch_cart['image'];
                 ?>
                 <tr>
                     <td><img src="<?php echo htmlspecialchars($image_path); ?>" alt="<?php echo htmlspecialchars($fetch_cart['name']); ?>" class="cart-image"></td>
@@ -122,7 +122,7 @@ if (isset($_POST['update_quantity'])) {
                         foreach($_SESSION['cart'] as $index => $item) {
                             $sub_total = $item['price'] * $item['quantity'];
                             $grand_total += $sub_total;
-                            $image_path = strpos($item['image'], 'uploaded_img/') === 0 ? $item['image'] : 'uploaded_img/' . $item['image'];
+                            $image_path = strpos($item['image'], 'assets/uploads/') === 0 ? $item['image'] : 'assets/uploads/' . $item['image'];
                 ?>
                 <tr>
                     <td><img src="<?php echo htmlspecialchars($image_path); ?>" alt="<?php echo htmlspecialchars($item['name']); ?>" class="cart-image"></td>
@@ -168,7 +168,7 @@ if (isset($_POST['update_quantity'])) {
     </div>
 </section>
 
-<?php include 'footer.php'; ?>
-<script src="js/script.js"></script>
+<?php include 'includes/footer.php'; ?>
+<script src="assets/js/script.js"></script>
 </body>
 </html>

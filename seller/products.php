@@ -1,13 +1,13 @@
 <?php
-include 'config.php';
-include 'seller_header.php';
+include '../includes/config.php';
+include '../includes/seller_header.php';
 session_start();
 
 $user_id = isset($_SESSION['user_id']) ? (int)$_SESSION['user_id'] : 0;
 $messages = [];
 
 if (!$user_id || $_SESSION['user_type'] !== 'seller') {
-    header('location:login.php');
+    header('location:../login.php');
     exit();
 }
 
@@ -17,7 +17,7 @@ if (isset($_GET['delete'])) {
     $fetch_product = mysqli_fetch_assoc($select_product);
 
     if ($fetch_product) {
-        $image_path = 'C:/xampp/htdocs/PhoneSell/uploaded_img/' . $fetch_product['image'];
+        $image_path = 'C:/xampp/htdocs/PhoneSell/../assets/uploads/' . $fetch_product['image'];
         if (file_exists($image_path)) {
             unlink($image_path);
         }
@@ -38,10 +38,10 @@ $select_products = mysqli_query($conn, "SELECT * FROM products WHERE seller_id =
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Products</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="css/seller_style.css">
+    <link rel="stylesheet" href="../assets/css/seller_style.css">
 </head>
 <body>
-<?php include 'header.php'; ?>
+<?php include '../includes/header.php'; ?>
 
 <section class="show-products">
     <h1 class="title">My Products</h1>
@@ -61,13 +61,13 @@ $select_products = mysqli_query($conn, "SELECT * FROM products WHERE seller_id =
                 <?php if (mysqli_num_rows($select_products) > 0): ?>
                     <?php while ($fetch_products = mysqli_fetch_assoc($select_products)): ?>
                         <tr>
-                            <td><img src="uploaded_img/<?php echo htmlspecialchars($fetch_products['image']); ?>" alt="" class="cart-image"></td>
+                            <td><img src="../assets/uploads/<?php echo htmlspecialchars($fetch_products['image']); ?>" alt="" class="cart-image"></td>
                             <td><?php echo htmlspecialchars($fetch_products['name']); ?></td>
                             <td>$<?php echo number_format($fetch_products['price'], 2); ?></td>
                             <td><?php echo htmlspecialchars($fetch_products['details']); ?></td>
                             <td><?php echo htmlspecialchars($fetch_products['category']); ?></td>
                             <td class="actions">
-                                <a href="seller_update_product.php?update=<?php echo $fetch_products['id']; ?>" class="option-btn"><i class="fas fa-edit"></i> Update</a>
+                                <a href="update_product.php?update=<?php echo $fetch_products['id']; ?>" class="option-btn"><i class="fas fa-edit"></i> Update</a>
                                 <a href="?delete=<?php echo $fetch_products['id']; ?>" class="delete-btn" onclick="return confirm('Delete this product?');"><i class="fas fa-trash"></i> Delete</a>
                             </td>
                         </tr>
@@ -79,10 +79,10 @@ $select_products = mysqli_query($conn, "SELECT * FROM products WHERE seller_id =
         </table>
     </div>
     <div style="text-align: center; margin-top: 2rem;">
-        <a href="seller_add_product.php" class="btn">Add New Product</a>
+        <a href="add_product.php" class="btn">Add New Product</a>
     </div>
 </section>
 
-<script src="js/seller_script.js"></script>
+<script src="../assets/js/seller_script.js"></script>
 </body>
 </html>

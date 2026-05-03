@@ -1,12 +1,12 @@
 <?php
-include 'seller_header.php';
-include 'config.php';
+include '../includes/seller_header.php';
+include '../includes/config.php';
 
 $user_id = isset($_SESSION['user_id']) ? (int)$_SESSION['user_id'] : 0;
 $messages = [];
 
 if (!$user_id) {
-    header('location:login.php');
+    header('location:../login.php');
     exit();
 }
 
@@ -28,7 +28,7 @@ if (isset($_POST['add_product'])) {
     $image = $_FILES['image']['name'];
     $image_size = $_FILES['image']['size'];
     $image_tmp_name = $_FILES['image']['tmp_name'];
-    $image_folder = 'C:/xampp/htdocs/PhoneSell/uploaded_img/';
+    $image_folder = 'C:/xampp/htdocs/PhoneSell/../assets/uploads/';
 
     if (!is_dir($image_folder)) {
         mkdir($image_folder, 0755, true);

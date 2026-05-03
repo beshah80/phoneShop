@@ -1,5 +1,5 @@
 <?php
-include 'config.php';
+include 'includes/config.php';
 
 $user_id = $_SESSION['user_id'];
 
@@ -137,11 +137,11 @@ function updatePaymentStatus($conn, $order_id, $transaction_id, $status) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Payment - <?php echo htmlspecialchars($order['payment_name']); ?></title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
 
-<?php include 'header.php'; ?>
+<?php include 'includes/header.php'; ?>
 
 <section class="heading">
     <h3>Payment</h3>
@@ -370,7 +370,7 @@ function updatePaymentStatus($conn, $order_id, $transaction_id, $status) {
 }
 </style>
 
-<?php include 'footer.php'; ?>
-<script src="js/script.js"></script>
+<?php include 'includes/footer.php'; ?>
+<script src="assets/js/script.js"></script>
 </body>
 </html> 

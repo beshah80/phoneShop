@@ -1,5 +1,5 @@
 <?php
-include 'config.php';
+include 'includes/config.php';
 
 $user_id = $_SESSION['user_id'];
 
@@ -122,11 +122,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Checkout - PhoneSell</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
 
-<?php include 'header.php'; ?>
+<?php include 'includes/header.php'; ?>
 
 <section class="heading">
     <h3>Checkout</h3>
@@ -155,7 +155,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     while ($item = mysqli_fetch_assoc($cart_items)):
                     ?>
                     <div class="item">
-                        <img src="uploaded_img/<?php echo htmlspecialchars($item['image']); ?>" alt="">
+                        <img src="assets/uploads/<?php echo htmlspecialchars($item['image']); ?>" alt="">
                         <div class="item-details">
                             <h4><?php echo htmlspecialchars($item['name']); ?></h4>
                             <p>Quantity: <?php echo $item['quantity']; ?></p>
@@ -428,7 +428,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 </style>
 
-<?php include 'footer.php'; ?>
-<script src="js/script.js"></script>
+<?php include 'includes/footer.php'; ?>
+<script src="assets/js/script.js"></script>
 </body>
 </html>

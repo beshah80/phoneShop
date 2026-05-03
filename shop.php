@@ -1,5 +1,5 @@
 <?php
-include 'config.php';
+include 'includes/config.php';
 // session_start();
 
 $user_id = $_SESSION['user_id'] ?? null;
@@ -67,11 +67,11 @@ if (isset($_POST['add_to_cart'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shop</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
 
-<?php include 'header.php'; ?>
+<?php include 'includes/header.php'; ?>
 
 <section class="heading">
     <h3>Phone Shop</h3>
@@ -85,7 +85,7 @@ if (isset($_POST['add_to_cart'])) {
         $select_products = mysqli_query($conn, "SELECT * FROM `products`") or die('query failed');
         if (mysqli_num_rows($select_products) > 0) {
             while ($fetch_products = mysqli_fetch_assoc($select_products)) {
-                $image_path = strpos($fetch_products['image'], 'uploaded_img/') === 0 ? $fetch_products['image'] : 'uploaded_img/' . $fetch_products['image'];
+                $image_path = strpos($fetch_products['image'], 'assets/uploads/') === 0 ? $fetch_products['image'] : 'assets/uploads/' . $fetch_products['image'];
         ?>
         <form action="" method="POST" class="box">
             <a href="view_page.php?pid=<?php echo $fetch_products['id']; ?>" class="fas fa-eye"></a>
@@ -108,7 +108,7 @@ if (isset($_POST['add_to_cart'])) {
     </div>
 </section>
 
-<?php include 'footer.php'; ?>
-<script src="js/script.js"></script>
+<?php include 'includes/footer.php'; ?>
+<script src="assets/js/script.js"></script>
 </body>
 </html>

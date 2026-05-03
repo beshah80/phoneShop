@@ -1,5 +1,5 @@
 <?php
-@include 'config.php';
+include_once __DIR__ . '/config.php';
 
 $user_id = $_SESSION['user_id'] ?? null;
 
@@ -9,7 +9,7 @@ if ($user_id) {
     mysqli_stmt_execute($stmt);
     $result = mysqli_stmt_get_result($stmt);
     if (mysqli_num_rows($result) == 0) {
-        header('Location: home.php');
+        header('Location: ../home.php');
         exit();
     }
     mysqli_stmt_close($stmt);
@@ -31,19 +31,19 @@ if (isset($messages)) {
 ?>
 
 <header class="header">
-    <link rel="stylesheet" href="css/seller_style.css">
+    <link rel="stylesheet" href="../assets/css/seller_style.css">
     <div class="flex">
-        <a href="seller_dashboard.php" class="logo">PhoneSell</a>
+        <a href="dashboard.php" class="logo">PhoneSell</a>
         <nav class="navbar">
             <ul>
-                <li><a href="seller_dashboard.php">Dashboard</a></li>
-                <li><a href="seller_products.php">My Products</a></li>
-                <li><a href="seller_add_product.php">Add Product</a></li>
+                <li><a href="dashboard.php">Dashboard</a></li>
+                <li><a href="products.php">My Products</a></li>
+                <li><a href="add_product.php">Add Product</a></li>
             </ul>
         </nav>
         <div class="icons">
             <div id="menu-btn" class="fas fa-bars"></div>
-            <a href="search_page.php" class="fas fa-search"></a>
+            <a href="../search_page.php" class="fas fa-search"></a>
             <div id="user-btn" class="fas fa-user"></div>
             <?php
             $wishlist_count = 0;
@@ -64,13 +64,14 @@ if (isset($messages)) {
                 mysqli_stmt_close($stmt_cart);
             }
             ?>
-            <a href="wishlist.php"><i class="fas fa-heart"></i><span>(<?php echo $wishlist_count; ?>)</span></a>
-            <a href="cart.php"><i class="fas fa-shopping-cart"></i><span>(<?php echo $cart_count; ?>)</span></a>
+            <a href="../wishlist.php"><i class="fas fa-heart"></i><span>(<?php echo $wishlist_count; ?>)</span></a>
+            <a href="../cart.php"><i class="fas fa-shopping-cart"></i><span>(<?php echo $cart_count; ?>)</span></a>
         </div>
         <div class="account-box">
             <p>username: <span><?php echo htmlspecialchars($_SESSION['user_name'] ?? 'Guest'); ?></span></p>
             <p>email: <span><?php echo htmlspecialchars($_SESSION['user_email'] ?? 'N/A'); ?></span></p>
-            <a href="logout.php" class="delete-btn">logout</a>
+            <a href="../logout.php" class="delete-btn">logout</a>
+            <a href="../home.php" class="option-btn">back to home</a>
         </div>
     </div>
 </header>

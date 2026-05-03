@@ -1,19 +1,19 @@
 <?php
 
-@include 'config.php';
+@include '../includes/config.php';
 
 // session_start();
 
 $admin_id = $_SESSION['admin_id'];
 
 if(!isset($admin_id)){
-   header('location:login.php');
+   header('location:../login.php');
 };
 
 if(isset($_GET['delete'])){
    $delete_id = $_GET['delete'];
    mysqli_query($conn, "DELETE FROM `message` WHERE id = '$delete_id'") or die('query failed');
-   header('location:admin_contacts.php');
+   header('location:contacts.php');
 }
 
 ?>
@@ -30,12 +30,12 @@ if(isset($_GET['delete'])){
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
    <!-- custom admin css file link  -->
-   <link rel="stylesheet" href="css/admin_style.css">
+   <link rel="stylesheet" href="../assets/css/admin_style.css">
 
 </head>
 <body>
    
-<?php @include 'admin_header.php'; ?>
+<?php @include '../includes/admin_header.php'; ?>
 
 <section class="messages">
 
@@ -62,7 +62,7 @@ if(isset($_GET['delete'])){
                <i class="fas fa-comment-dots"></i> <?php echo htmlspecialchars($fetch_message['message']); ?>
             </div>
          </div>
-         <a href="admin_contacts.php?delete=<?php echo $fetch_message['id']; ?>" onclick="return confirm('delete this message?');" class="delete-btn">Delete</a>
+         <a href="contacts.php?delete=<?php echo $fetch_message['id']; ?>" onclick="return confirm('delete this message?');" class="delete-btn">Delete</a>
       </div>
       <?php
          }
@@ -74,7 +74,7 @@ if(isset($_GET['delete'])){
 
 </section>
 
-<script src="js/admin_script.js"></script>
+<script src="../assets/js/admin_script.js"></script>
 
 </body>
 </html>

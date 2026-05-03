@@ -1,6 +1,6 @@
 <?php
 
-@include 'config.php';
+@include 'includes/config.php';
 
 // session_start();
 
@@ -82,12 +82,12 @@ if(isset($_GET['delete_all'])){
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
     <!-- custom css file link  -->
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="assets/css/style.css">
 
 </head>
 <body>
     
-<?php @include 'header.php'; ?>
+<?php @include 'includes/header.php'; ?>
 
 <section class="heading">
     <h3>your wishlist</h3>
@@ -111,7 +111,7 @@ if(isset($_GET['delete_all'])){
     <form action="" method="POST" class="box">
         <a href="wishlist.php?delete=<?php echo $fetch_wishlist['id']; ?>" class="fas fa-times" onclick="return confirm('delete this from wishlist?');"></a>
         <a href="view_page.php?pid=<?php echo $fetch_wishlist['pid']; ?>" class="fas fa-eye"></a>
-        <img src="uploaded_img/<?php echo $fetch_wishlist['image']; ?>" alt="" class="image">
+        <img src="assets/uploads/<?php echo $fetch_wishlist['image']; ?>" alt="" class="image">
         <div class="name"><?php echo htmlspecialchars($fetch_wishlist['name']); ?></div>
         <div class="price"><?php echo number_format($fetch_wishlist['price'], 2); ?> ETB</div>
         <input type="hidden" name="product_id" value="<?php echo $fetch_wishlist['pid']; ?>">
@@ -131,7 +131,7 @@ if(isset($_GET['delete_all'])){
     <form action="" method="POST" class="box">
         <a href="wishlist.php?delete=<?php echo $index; ?>" class="fas fa-times" onclick="return confirm('delete this from wishlist?');"></a>
         <a href="view_page.php?pid=<?php echo $item['pid']; ?>" class="fas fa-eye"></a>
-        <img src="uploaded_img/<?php echo $item['image']; ?>" alt="" class="image">
+        <img src="assets/uploads/<?php echo $item['image']; ?>" alt="" class="image">
         <div class="name"><?php echo htmlspecialchars($item['name']); ?></div>
         <div class="price"><?php echo number_format($item['price'], 2); ?> ETB</div>
         <input type="hidden" name="product_id" value="<?php echo $item['pid']; ?>">
@@ -160,9 +160,9 @@ if(isset($_GET['delete_all'])){
 
 </section>
 
-<?php @include 'footer.php'; ?>
+<?php @include 'includes/footer.php'; ?>
 
-<script src="js/script.js"></script>
+<script src="assets/js/script.js"></script>
 
 </body>
 </html>

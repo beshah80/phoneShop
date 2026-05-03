@@ -1,5 +1,5 @@
 <?php
-@include 'config.php';
+@include 'includes/config.php';
 
 $user_id = $_SESSION['user_id'] ?? null;
 if (!$user_id) {
@@ -76,7 +76,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_profile'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Profile</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="assets/css/style.css">
     <style>
         .profile-form {
             max-width: 400px;
@@ -134,7 +134,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_profile'])) {
     </style>
 </head>
 <body>
-<?php include 'header.php'; ?>
+<?php include 'includes/header.php'; ?>
 <section>
     <form class="profile-form" method="POST" action="">
         <h2>My Profile</h2>

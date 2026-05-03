@@ -1,10 +1,10 @@
 <?php
-include 'config.php';
+include '../includes/config.php';
 
 $admin_id = $_SESSION['admin_id'] ?? null;
 
 if (!isset($admin_id)) {
-    header('Location: login.php');
+    header('Location: ../login.php');
     exit();
 }
 
@@ -30,7 +30,7 @@ if (isset($_GET['delete'])) {
     $delete_id = mysqli_real_escape_string($conn, $_GET['delete']);
     mysqli_query($conn, "DELETE FROM `users` WHERE id = '$delete_id'") or die(mysqli_error($conn));
     $messages[] = 'User deleted successfully!';
-    header('Location: admin_users.php');
+    header('Location: users.php');
     exit();
 }
 
@@ -104,11 +104,11 @@ if (isset($_GET['search'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Users</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="css/admin_style.css">
+    <link rel="stylesheet" href="../assets/css/admin_style.css">
 </head>
 <body>
 
-<?php include 'admin_header.php'; ?>
+<?php include '../includes/admin_header.php'; ?>
 
 <section class="users">
     <h1 class="title">Customer Accounts</h1>
@@ -119,7 +119,7 @@ if (isset($_GET['search'])) {
             <input type="text" name="search" class="box" placeholder="Search by username or email..." value="<?php echo htmlspecialchars($search_query); ?>">
             <button type="submit" class="btn"><i class="fas fa-search"></i> Search</button>
             <?php if ($search_query): ?>
-                <a href="admin_users.php" class="btn"><i class="fas fa-times"></i> Clear</a>
+                <a href="users.php" class="btn"><i class="fas fa-times"></i> Clear</a>
             <?php endif; ?>
         </form>
     </div>
@@ -161,8 +161,8 @@ if (isset($_GET['search'])) {
                     <td><?php echo htmlspecialchars($fetch_users['email']); ?></td>
                     <td><span class="user-type-badge user-type-<?php echo htmlspecialchars($fetch_users['user_type']); ?>"><?php echo htmlspecialchars(ucfirst($fetch_users['user_type'])); ?></span></td>
                     <td>
-                        <a href="admin_users.php?update=<?php echo $fetch_users['id']; ?>" class="option-btn"><i class="fas fa-edit"></i> Update</a>
-                        <a href="admin_users.php?delete=<?php echo $fetch_users['id']; ?>" class="delete-btn" onclick="return confirm('Delete this user?');"><i class="fas fa-trash"></i> Delete</a>
+                        <a href="users.php?update=<?php echo $fetch_users['id']; ?>" class="option-btn"><i class="fas fa-edit"></i> Update</a>
+                        <a href="users.php?delete=<?php echo $fetch_users['id']; ?>" class="delete-btn" onclick="return confirm('Delete this user?');"><i class="fas fa-trash"></i> Delete</a>
                     </td>
                 </tr>
                 <?php
@@ -229,6 +229,6 @@ if (isset($_GET['search'])) {
     </div>
 </section>
 
-<script src="js/admin_script.js"></script>
+<script src="../assets/js/admin_script.js"></script>
 </body>
 </html>
