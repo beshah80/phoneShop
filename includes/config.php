@@ -1,18 +1,18 @@
 <?php
 // ==========================================
-// 🚀 ROBUST DEPLOYMENT CONFIG
+// 🚀 SMART ZERO-CONFIG DEPLOYMENT
 // ==========================================
 
-// Helper function to get variables from ENV, SERVER, or getenv()
 function get_env_var($key) {
     return $_ENV[$key] ?? $_SERVER[$key] ?? getenv($key) ?? null;
 }
 
-$db_host = get_env_var('DB_HOST');
-$db_user = get_env_var('DB_USER');
-$db_pass = get_env_var('DB_PASS');
-$db_name = get_env_var('DB_NAME');
-$db_port = get_env_var('DB_PORT') ?: 3306;
+// 🔍 Smart Detection: Checks for Railway defaults OR custom names
+$db_host = get_env_var('MYSQLHOST') ?: get_env_var('DB_HOST') ?: 'localhost';
+$db_user = get_env_var('MYSQLUSER') ?: get_env_var('DB_USER') ?: 'phone_admin';
+$db_pass = get_env_var('MYSQLPASSWORD') ?: get_env_var('DB_PASS') ?: 'phone123';
+$db_name = get_env_var('MYSQLDATABASE') ?: get_env_var('DB_NAME') ?: 'shop_db';
+$db_port = get_env_var('MYSQLPORT') ?: get_env_var('DB_PORT') ?: 3306;
 
 define('BASE_URL', get_env_var('BASE_URL') ?: '/');
 
@@ -28,19 +28,6 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-// 🧪 DEBUG SECTION (This will help us see what is happening)
-if (!$db_host || !$db_user || !$db_name) {
-    echo "<h1>❌ Deployment Debugger</h1>";
-    echo "<p>Checking variables...</p>";
-    echo "<ul>";
-    echo "<li>DB_HOST: " . ($db_host ? "✅ Found" : "❌ MISSING") . "</li>";
-    echo "<li>DB_USER: " . ($db_user ? "✅ Found" : "❌ MISSING") . "</li>";
-    echo "<li>DB_NAME: " . ($db_name ? "✅ Found" : "❌ MISSING") . "</li>";
-    echo "</ul>";
-    echo "<p><b>Action:</b> If you see 'MISSING', go to Railway and make sure you clicked the <b>'Deploy'</b> button after adding the variables.</p>";
-    die();
-}
-
 mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 try {
     $conn = mysqli_init();
@@ -50,7 +37,11 @@ try {
     }
     mysqli_set_charset($conn, 'utf8mb4');
 } catch (Exception $e) {
-    die("<h1>❌ Database Connection Failed</h1>
-         <p>Error: " . $e->getMessage() . "</p>");
+    echo "<h1>❌ Database Connection Failed</h1>";
+    echo "<p>Your app found the variables, but could not connect.</p>";
+    echo "<p><b>Host:</b> $db_host</p>";
+    echo "<p><b>User:</b> $db_user</p>";
+    echo "<p>Error: " . $e->getMessage() . "</p>";
+    die();
 }
 ?>
