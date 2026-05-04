@@ -3,15 +3,15 @@
 // 🚀 MODERN DEPLOYMENT CONFIG (Environment Variables)
 // ==========================================
 
-// This section reads from the "Environment Variables" you set in Railway/Render/Vercel
-$db_host = getenv('DB_HOST') ?: 'localhost';
-$db_user = getenv('DB_USER') ?: 'phone_admin';
-$db_pass = getenv('DB_PASS') ?: 'phone123';
-$db_name = getenv('DB_NAME') ?: 'shop_db';
+// Get variables from Railway environment
+$db_host = getenv('DB_HOST');
+$db_user = getenv('DB_USER');
+$db_pass = getenv('DB_PASS');
+$db_name = getenv('DB_NAME');
 $db_port = getenv('DB_PORT') ?: 3306;
 
-// Site URL (Set this to your live domain in environment variables)
-define('BASE_URL', getenv('BASE_URL') ?: '/phoneShop/');
+// Site URL
+define('BASE_URL', getenv('BASE_URL') ?: '/');
 
 // ==========================================
 // 🛡️ SYSTEM CORE
@@ -25,6 +25,13 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
+// Check if variables are missing
+if (!$db_host || !$db_user || !$db_name) {
+    die("<h1>❌ Deployment Setup Incomplete</h1>
+         <p>Your app is online, but it can't see the Database Variables.</p>
+         <p><b>Please ensure you added DB_HOST, DB_USER, DB_PASS, and DB_NAME in the Railway Variables tab.</b></p>");
+}
+
 mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 try {
     $conn = mysqli_init();
@@ -34,11 +41,8 @@ try {
     }
     mysqli_set_charset($conn, 'utf8mb4');
 } catch (Exception $e) {
-    // Show detailed error only in local dev
-    if (getenv('DB_HOST')) {
-        die("Deployment Error: Database connection failed. Check your environment variables.");
-    } else {
-        die("Local Error: " . $e->getMessage());
-    }
+    die("<h1>❌ Database Connection Failed</h1>
+         <p>The variables are there, but the password or host is incorrect.</p>
+         <p>Error: " . $e->getMessage() . "</p>");
 }
 ?>
